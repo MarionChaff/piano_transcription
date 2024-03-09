@@ -13,7 +13,7 @@ def convert_midi_to_wav(
 
     files = list(os.scandir(path))
     wav_list = []
-    for file in files[0:100]:
+    for file in files[0:5]:
 
         fs = FluidSynth(soundfont)
 
@@ -30,7 +30,7 @@ def spectogram_stft():
     files = convert_midi_to_wav()
 
     result_stft = []
-    for file in files[0:100]:
+    for file in files[0:5]:
 
         # using a fourier transform from librosa - stft
         y, sr = librosa.load(file, duration=15, sr=None)
@@ -53,7 +53,7 @@ def spectogram_cqt():
     files = convert_midi_to_wav()
 
     result_cqt = []
-    for file in files[0:100]:
+    for file in files[0:5]:
 
         y, sr = librosa.load(file, duration=15, sr=None)
         C = np.abs(librosa.cqt(y, sr=sr))
