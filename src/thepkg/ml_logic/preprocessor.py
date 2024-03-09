@@ -1,14 +1,14 @@
 from midi2audio import FluidSynth
-import matplotlib.pyplot as plt
 import librosa
 import numpy as np
-import pandas as pd
 import os
+import os.path
 
 
 def convert_midi_to_wav(
-    path="./data/midis",
+    path="./data/short_midis",
     soundfont="./soundfont/FluidR3_GM.sf2",
+    dest_wav_base_path="./data/wav/",
 ):
 
     files = list(os.scandir(path))
@@ -16,18 +16,19 @@ def convert_midi_to_wav(
     for file in files[0:100]:
 
         fs = FluidSynth(soundfont)
-
-        fs.midi_to_audio(file, f"{file.name}.wav")
+        fs.midi_to_audio(file, f"{dest_wav_base_path}{file.name}.wav")
         output = f"{file.name}.wav"
-
         wav_list.append(output)
 
     return wav_list
 
 
-def spectogram_stft():
+def spectogram_stft(
+    path="./data/short_midis",
+    soundfont="./soundfont/FluidR3_GM.sf2",
+):
 
-    files = convert_midi_to_wav()
+    files = convert_midi_to_wav(path, soundfont)
 
     result_stft = []
     for file in files[0:100]:
@@ -66,3 +67,8 @@ def spectogram_cqt():
         result_cqt.append(C)
 
     return result_cqt
+
+
+if __name__ == "__main__":
+    spectogram_stft()
+    spectogram_cqt()
