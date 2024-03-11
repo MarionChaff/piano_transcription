@@ -64,3 +64,9 @@ def spectogram_cqt():
         result_cqt[file] = C
 
     return result_cqt
+
+
+if __name__ == '__main__':
+    convert_midi_to_wav
+    spectogram_stft
+    spectogram_cqt
